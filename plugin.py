@@ -169,7 +169,8 @@ def select_in_album(album_id, music_language):
     album = needforponies.get_album_data(album_id)
     if len(album) == 1 or (music_language in album):
         if len(album) == 1:
-            music_language = album.keys()[0]
+            for unique_name in album.keys(): # for python 3
+                music_language = unique_name
         selected_album = album[music_language]
         music_id = 0
         for music in selected_album:
