@@ -9,7 +9,7 @@ except:
 try:
     from urllib.error import HTTPError
     use_httperror = True
-except:
+except ImportError:
     use_httperror = False
 
 def get_soup(url):
@@ -109,14 +109,14 @@ def parse_video_page(base_url, language):
     episode["sub_fr"] = subtitle_url_fr
     episode["sub_en"] = subtitle_url_en
     if use_httperror:
-        video_check = urlopen(video_url)
-        http_code = video_check.getcode()
-    else:
         try:
             video_check = urlopen(video_url)
             http_code = video_check.getcode()
         except HTTPError:
             http_code = 404
+    else:
+        video_check = urlopen(video_url)
+        http_code = video_check.getcode()
     if http_code == 404: # it seem the french version doesn't exist
         if language == "EN":
             raise BaseException("the video doesn't exist, but we are in english language...")
