@@ -175,6 +175,8 @@ def get_album_data(album_id):
         for music_soup in part_soup.find_all("div", attrs={"class": "col-xs-12 music-item"}):
             music_name = music_soup.find("strong").text.strip()
             music_url = "https://needforponies.fr"+music_soup.find("source")["src"]
+            if music_name.endswith(".mp3"):
+                music_name = music_name[:-4]
             musics.append((music_name, music_url))
         result[music_language] = musics
     return result

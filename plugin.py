@@ -183,6 +183,7 @@ def select_in_album(album_id, music_language):
                 "discnumber": 0,
                 "count": int(tracknumber_str)
             })
+            music_item.setPath(music[1])
             xbmcplugin.addDirectoryItem(_handle, get_url(action="play_music", album_id=album_id, music_language=music_language, music_id=str(music_id)), music_item, False)
             music_id += 1
         xbmcplugin.addSortMethod(_handle, xbmcplugin.SORT_METHOD_TRACKNUM)
