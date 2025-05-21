@@ -9,8 +9,6 @@ try:
 except:
     from urllib.parse import parse_qsl
 
-import plugin_param
-
 import xbmcgui
 import xbmcplugin
 
@@ -203,7 +201,7 @@ def play_music(album_id, music_language, music_id):
 
 def router(paramstring):
     params = dict(parse_qsl(paramstring))
-    if params:
+    if "action" in params:
         action = params["action"]
         if action == 'list_season':
             select_season()
@@ -234,7 +232,7 @@ def router(paramstring):
         else:
             raise ValueError('Invalid paramstring: {0}'.format(paramstring))
     else:
-        if plugin_param.CATEGORY == "video":
+        if params["content_type"] == "video":
             select_category()
         else:
             select_music_categories()
