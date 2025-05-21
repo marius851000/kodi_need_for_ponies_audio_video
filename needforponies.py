@@ -105,6 +105,8 @@ def parse_video_page(base_url, language):
             subtitle_url_fr = "https://needforponies.fr" + a["href"]
         if text == "Sous-titres EN":
             subtitle_url_en = "https://needforponies.fr" + a["href"]
+    if video_url[0] == "/":
+        video_url = "https://needforponies.fr" + video_url
     episode["video_url"] = video_url
     episode["sub_fr"] = subtitle_url_fr
     episode["sub_en"] = subtitle_url_en
@@ -180,3 +182,12 @@ def get_album_data(album_id):
             musics.append((music_name, music_url))
         result[music_language] = musics
     return result
+
+def list_other_shows():
+    url = "https://needforponies.fr/other-tv-shows/"
+    shows = parse_page_poster_with_category(url)
+
+    for show in shows:
+        season["show_id"] = season["href"].split("/")[-1]
+    
+    return shows

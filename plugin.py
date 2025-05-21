@@ -32,6 +32,8 @@ def select_category():
     xbmcplugin.addDirectoryItem(_handle, get_url(action="list_movies"), film_item, True)
     other_item = xbmcgui.ListItem(label = "autres")
     xbmcplugin.addDirectoryItem(_handle, get_url(action="list_others_category"), other_item, True)
+    other_show_item = xbmcgui.ListItem(label = "autres séries")
+    xbmcplugin.addDirectoryItem(_handle, get_url(action="list_other_shows"), other_show_item, True)
     #music_item = xbmcgui.ListItem(label = "musiques")
     #xbmcplugin.addDirectoryItem(_handle, get_url(action="list_music_categories"), music_item, True)
     xbmcplugin.endOfDirectory(_handle)
@@ -199,6 +201,17 @@ def play_music(album_id, music_language, music_id):
     music_item = xbmcgui.ListItem(label = music[0], path=music[1])
     xbmcplugin.setResolvedUrl(_handle, True, listitem=music_item)
 
+def select_other_shows():
+
+    shows = needforponies.list_seasons()
+
+    for show in shows:
+        show_item = xbmcgui.ListItem(label = show["name"])
+        show_item.setArt({"poster": show["poster"], "thumb": show["poster"]})
+        xbmcplugin.addDirectoryItem(_handle, get_url(action="list_show_seasons", show_id=show["show_id"]), show_item, True)
+
+    xbmcplugin.endOfDirectory(_handle)
+
 def router(paramstring):
     params = dict(parse_qsl(paramstring))
     if "action" in params:
@@ -229,6 +242,8 @@ def router(paramstring):
             select_in_album(params["album_id"], params["music_language"])
         elif action == "play_music":
             play_music(params["album_id"], params["music_language"], params["music_id"])
+        elif action == "list_other_shows":
+            select_other_shows()
         else:
             raise ValueError('Invalid paramstring: {0}'.format(paramstring))
     else:
