@@ -32,8 +32,9 @@ def select_category():
     xbmcplugin.addDirectoryItem(_handle, get_url(action="list_movies"), film_item, True)
     other_item = xbmcgui.ListItem(label = "autres")
     xbmcplugin.addDirectoryItem(_handle, get_url(action="list_others_category"), other_item, True)
-    other_show_item = xbmcgui.ListItem(label = "autres séries")
-    xbmcplugin.addDirectoryItem(_handle, get_url(action="list_other_shows"), other_show_item, True)
+    #TODO: finish implementation
+    #other_show_item = xbmcgui.ListItem(label = "autres séries")
+    #xbmcplugin.addDirectoryItem(_handle, get_url(action="list_other_shows"), other_show_item, True)
     #music_item = xbmcgui.ListItem(label = "musiques")
     #xbmcplugin.addDirectoryItem(_handle, get_url(action="list_music_categories"), music_item, True)
     xbmcplugin.endOfDirectory(_handle)
